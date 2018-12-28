@@ -1,0 +1,55 @@
+/**
+ *  软件版权：SUNLEI
+ *  系统名称：test
+ *  文件名称：StackTest.java
+ *  版本变更记录（可选）：修改日期2017年9月25日  上午11:36:21，修改人SUNLEI，工单号（手填），修改描述（手填）
+ */
+package com.tec.stack;
+
+import java.util.Enumeration;
+import java.util.Stack;
+
+/**
+ * @Description:
+ *               <p>
+ *               创建日期：2017年9月25日
+ *               </p>
+ * @version V1.0
+ * @author SUNLEI
+ * @see
+ */
+public class StackTest {
+	
+	public static void main(String[] args) {
+		Stack stack = new Stack(); // 创建堆栈对象
+		System.out.println("11111, absdder, 29999.3 三个元素入栈");
+		stack.push(new Integer(11111)); // 向
+		printStack(stack);  //显示栈中的所有元素
+		stack.push("absdder"); //向 栈中 压入
+		printStack(stack);  //显示栈中的所有元素
+		stack.push(new Double(29999.3)); //向 栈中 压入
+		printStack(stack);  //显示栈中的所有元素
+		String s = new String("absdder");
+		System.out.println("元素absdder在堆栈的位置"+stack.search(s));      
+		System.out.println("元素11111在堆栈的位置"+stack.search(11111));
+		System.out.println("11111, absdder, 29999.3 三个元素出栈"); //弹出 栈顶元素
+		System.out.println("元素"+stack.pop()+"出栈");
+		printStack(stack);  //显示栈中的所有元素
+		System.out.println("元素"+stack.pop()+"出栈");
+		printStack(stack);  //显示栈中的所有元素
+		System.out.println("元素"+stack.pop()+"出栈");
+		printStack(stack);  //显示栈中的所有元素
+	}
+
+	private static void printStack(Stack<Integer> stack) {
+		if (stack.empty())
+			System.out.println("堆栈是空的，没有元素");
+		else {
+			System.out.print("堆栈中的元素：");
+			Enumeration items = stack.elements(); // 得到 stack 中的枚举对象
+			while (items.hasMoreElements()) // 显示枚举（stack ） 中的所有元素
+				System.out.print(items.nextElement() + " ");
+		}
+		System.out.println(); // 换行
+	}
+}
