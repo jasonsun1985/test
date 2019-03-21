@@ -56,7 +56,7 @@ public class TestSnmpData {
     public void testSetPDU() throws Exception {
         String ip = "172.17.160.182";
         String community = "public";
-        SnmpData.setPDU(ip, community, "1.3.6.1.2.1.1.6.0", "RUIJIE");
+        SnmpData.setPDU(ip, community, "1.3.6.1.2.1.1.6.0", "1234");
     }
 
     public void testVersion() {

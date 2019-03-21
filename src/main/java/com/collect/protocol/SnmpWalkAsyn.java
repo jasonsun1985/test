@@ -146,7 +146,7 @@ public class SnmpWalkAsyn implements Runnable{
 	public static void main(String[] args) {
 		 
 		String ip = "172.17.167.4";
-		String community = "ruijie";
+		String community = "1234";
  
 		ArrayList<String> oidList = new ArrayList<String>();
 		oidList.add(".1.3.6.1.2.1.1.1.0");
@@ -164,7 +164,7 @@ public class SnmpWalkAsyn implements Runnable{
 	public void run() {
 		long start = System.currentTimeMillis();
 		String ip = "172.17.167.4";
-		String community = "ruijie";
+		String community = "1234";
 		String oid = "1.3.6.1.2.1.2.2.1.2";
 		final Map<String, String[]> t_results = new HashMap<String, String[]>();
 		final CommunityTarget target = createDefault(ip, community);
