@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD})            //字段名注解
+@Target({ElementType.FIELD})         //字段名注解
 @Retention(RetentionPolicy.RUNTIME)  //运行时注解
 @Inherited                           //允许类或接口继承
 @Documented                          //生成javadoc是包含注解

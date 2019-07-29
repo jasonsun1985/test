@@ -16,6 +16,6 @@ public class AkkaManager {
         ref.tell(bmw, ref);
         ref.tell(new String(), ref);
         System.out.println(ref.path());
-        actorSystem.shutdown();
+        actorSystem.terminate();
     }
 }

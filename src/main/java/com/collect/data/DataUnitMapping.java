@@ -2,23 +2,6 @@ package com.collect.data;
 
 import com.collect.data.DataUnitFormatter.DataUnit;
 
-/**
- * 简单的单位映射类 ，供KPI自适应单位使用<br>
- * <p>
- * Create on : Jul 20, 2012<br>
- * <p>
- * </p>
- * <br>
- * 
- * @author yuanwei@ruijie.com.cn<br>
- * @version riil.report.impl v1.0
- *          <p>
- *          <br>
- *          <strong>Modify History:</strong><br>
- *          yuanwei@ruijie.com.cn Jul 20, 2012 modify_content<br>
- *          -------------------------------------------<br>
- *          <br>
- */
 public final class DataUnitMapping {
     /**
      * <code>S_MB2</code> - Mb.

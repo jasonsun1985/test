@@ -7,10 +7,10 @@ public class TestDemo {
 	public static void main(String[] args) {
 
 		Filter f1 = new Filter();
-		f1.setUsername("moer");
+		f1.setUsername("jason");
 
 		Filter f2 = new Filter();
-		f2.setUsername("bing");
+		f2.setUsername("nb");
 		f2.setPassword("123a");
 
 		System.out.println(query(f1));
@@ -64,7 +64,7 @@ public class TestDemo {
 			// 拼接出每个字段的get方法(例如: getUsername)
 			String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 			String fieldValue = null;
-
+			
 			try {
 				// 通过反射获得get方法
 				Method getMethod = filter.getMethod(getMethodName);

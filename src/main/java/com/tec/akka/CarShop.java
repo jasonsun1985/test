@@ -1,8 +1,8 @@
 package com.tec.akka;
 
-import akka.actor.UntypedActor;
+import akka.actor.UntypedAbstractActor;
 
-public class CarShop extends UntypedActor {
+public class CarShop extends UntypedAbstractActor {
 
     @Override
     public void onReceive(Object obj) {

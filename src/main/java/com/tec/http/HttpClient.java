@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -23,24 +26,23 @@ import com.alibaba.fastjson.JSONObject;
 
 public class HttpClient {
 	private static final String token1 = "zJvEwHzumy57SXcxCzWB";
-	private static ExecutorService executorService = Executors.newFixedThreadPool(50);
+	private static ExecutorService executorService = Executors.newFixedThreadPool(10);
 	public static void main(String[] args) {
-		for (int i = 0; i < 1; i++) {
-		String str = "{remoteTest1:"+i+",remoteTest2:"+new Random().nextInt(100)+"}";
-			executorService.submit(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						httpPost("http://172.17.161.179:8080/api/v1/"+token1+"/telemetry", JSONObject.parseObject(str));
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
+		for (int i = 0; i < 20000000; i++) {
+			String str = "{remoteTest1:" + new Random().nextInt(100) + ",remoteTest2:" + new Random().nextInt(200) + "}";
+			executorService.submit(() -> {
+				try {
+					Thread.sleep(100);
+					httpPost("http://172.17.161.179:8080/api/v1/" + token1 + "/telemetry", JSONObject.parseObject(str));
+				}
+				catch (Exception e) {
+					e.printStackTrace();
 				}
 			});
 		}
 		executorService.shutdown();
 	}
+	
 	public static String httpPost(String url,JSONObject jsonParam) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost post = new HttpPost(url);
@@ -69,6 +71,7 @@ public class HttpClient {
         HttpResponse httpResponse = httpClient.execute(httpGet);
         HttpEntity entity = httpResponse.getEntity();
         String srtResult = EntityUtils.toString(entity);//获得返回的结果
+        System.out.println("响应内容： " + srtResult);
         httpClient.close();
         return srtResult;
     }

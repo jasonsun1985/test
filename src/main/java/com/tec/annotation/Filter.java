@@ -18,8 +18,10 @@ public class Filter {
 	public String getUsername() {
 		return username;
 	}
-
 	public String getPassword() {
 		return password;
+	}
+	@MethodInfo(comments = "表注释", date = "")
+	public void getMethodInfo(){
 	}
 }
