@@ -1,9 +1,3 @@
-/**
- *  软件版权：SUNLEI
- *  系统名称：test
- *  文件名称：StackTest.java
- *  版本变更记录（可选）：修改日期2017年9月25日  上午11:36:21，修改人SUNLEI，工单号（手填），修改描述（手填）
- */
 package com.tec.stack;
 
 import java.util.Enumeration;
