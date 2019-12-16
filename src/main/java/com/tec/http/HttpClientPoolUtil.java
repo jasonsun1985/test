@@ -1,5 +1,6 @@
 package com.tec.http;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,23 +36,34 @@ import com.google.common.base.Strings;
 	* @version V1.0 
  */
 public class HttpClientPoolUtil {
-	private static ExecutorService executorService = Executors.newFixedThreadPool(100);
+	private static ExecutorService executorService = Executors.newFixedThreadPool(1000);
 	public static void main(String[] args) {
-		for (int i = 0; i < 1000000; i++) {
-//			executorService.submit(() -> {
-//				try {
-////					Thread.sleep(100);
-//					execute("http://172.17.161.208:8445/api-a/hi");
-//				}
-//				catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			});
-//		executorService.shutdown();
-		new Thread(()-> {
-			execute("http://172.17.161.208:8445/api-a/hi");
-		}).run();
+		CountDownLatch ct = new CountDownLatch(1000);
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < 1000; i++) {
+			executorService.execute(() -> {
+				try {
+					execute("http://172.17.161.208:8445/api-a/hi");
+					ct.countDown();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+		});
+//		new Thread(()-> {
+//			execute("http://172.17.161.208:8445/api-a/hi");
+//		}).run();
 		}
+		try {
+			ct.await();
+		}
+		catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("一共用了 ： " + (end-start)/1000 + " 秒");
+		executorService.shutdown();
 	}
 	
 	
@@ -69,7 +81,7 @@ public class HttpClientPoolUtil {
 	private static final String DEFAULT_CONTENT_TYPE = "application/json";
 	/** * 默认请求超时时间30s */
 	private static final int DEFAUL_TTIME_OUT = 15000;
-	private static final int count = 32;
+	private static final int count = 10000;
 	private static final int totalCount = 1000;
 	private static final int Http_Default_Keep_Time =15000;
 
@@ -164,14 +176,10 @@ public class HttpClientPoolUtil {
 	 * * 创建请求
 	 * @param uri 请求url 
 	 * @param methodName 请求的方法类型
-	* 	@param contentType contentType类型 
-	*  @param timeout 超时时间 
-	* @param @return    入参
-	* @return HttpRequestBase    返回类型
-	* @author lisc 
-	* @throws
-	* @date 2019年7月9日 上午11:37:00 
-	* @version V1.0   
+     * @param contentType contentType类型 
+	 *  @param timeout 超时时间 
+	 * @return HttpRequestBase    返回类型
+	 * @throws
 	 */
 	public static HttpRequestBase getRequest(String uri, String methodName, String contentType, int timeout) {
 		if (httpClient == null) {
@@ -203,7 +211,7 @@ public class HttpClientPoolUtil {
 	}
 
 	/** 
-	 * 执行GET 请求 
+	    * 执行GET 请求 
 	 *  @param uri 
 	 *  @return
 	 */
@@ -223,7 +231,7 @@ public class HttpClientPoolUtil {
 			if (httpEntity != null) {
 				responseBody = EntityUtils.toString(httpEntity, "UTF-8");
 //				logger.info("请求URL: " + uri + "+ 返回状态码：" + httpResponse.getStatusLine().getStatusCode());
-				System.out.println("请求URL: " + uri + "+ 返回信息：" + httpResponse.getEntity().toString());
+				System.out.println("请求URL: " + uri + "+ 返回信息：" + responseBody);
 			}
 		} catch (Exception e) {
 			if (method != null) {
