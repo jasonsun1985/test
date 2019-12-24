@@ -30,20 +30,24 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
-/**
+import sun.net.www.content.audio.x_aiff;
+
+  /**
 	* @ClassName: HttpClientPoolUtil 
 	* @Description: 连接池
 	* @version V1.0 
- */
+	*/
 public class HttpClientPoolUtil {
-	private static ExecutorService executorService = Executors.newFixedThreadPool(1000);
+	private static ExecutorService executorService = Executors.newFixedThreadPool(100);
 	public static void main(String[] args) {
-		CountDownLatch ct = new CountDownLatch(1000);
+		CountDownLatch ct = new CountDownLatch(1000000);
 		long start = System.currentTimeMillis();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 1000000; i++) {
 			executorService.execute(() -> {
 				try {
-					execute("http://172.17.161.208:8445/api-a/hi");
+//					execute("http://172.17.161.208:8445/api-a/hi");
+//					execute("http://172.17.161.90:8445/api-a/hi");
+					execute("http://localhost:8888/api-a/hi");
 					ct.countDown();
 				}
 				catch (Exception e) {
@@ -82,7 +86,7 @@ public class HttpClientPoolUtil {
 	/** * 默认请求超时时间30s */
 	private static final int DEFAUL_TTIME_OUT = 15000;
 	private static final int count = 10000;
-	private static final int totalCount = 1000;
+	private static final int totalCount = 10000;
 	private static final int Http_Default_Keep_Time =15000;
 
 	/** * 初始化连接池 */
