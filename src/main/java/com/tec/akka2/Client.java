@@ -17,8 +17,6 @@ import akka.util.ByteString;
 /** 
  * @Description:
  * <p>创建日期：2019年4月3日 </p>
- * @version V1.0  
- * @author SUNLEI
  * @see
  */
 
