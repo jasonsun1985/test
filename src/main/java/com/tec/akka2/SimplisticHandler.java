@@ -1,6 +1,5 @@
 package com.tec.akka2;
 
-import akka.actor.AbstractActor;
 import akka.actor.UntypedActor;
 
 public class SimplisticHandler extends UntypedActor {
@@ -9,7 +8,4 @@ public class SimplisticHandler extends UntypedActor {
 	public void onReceive(Object message) throws Throwable {
 		System.out.println(message.toString());
 	}
-
-
-	
 }
